@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas VueBasic</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="col-10 mt-5 mx-auto">
+            <div v-for="(todo,index) in todos" :key="index">
+                <div class="card my-2">
+                    <div class="card-body">
+                        <span v-if="todo.prioritas == 'Penting'" class="text-danger">{{ todo.prioritas }}</span>
+                        <span v-else-if="todo.prioritas == 'Biasa'" class="text-primary">{{ todo.prioritas }}</span>
+                        <span v-else="todo.prioritas == 'Tidak Penting'" class="text-success">{{ todo.prioritas }}</span>
+                        <span class="float-right"><button class="btn btn-sm" @click="deleteTask(index)">X</button></span>
+                        <br>
+                        <h4>{{ todo.namaTodo }}</h4>
+                        <p>{{ todo.catatan }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-10 mt-5 mx-auto " >
+            <div class="card p-4" style="background-color: rgb(124, 224, 255);">
+                <div class="form-group">
+                    <p for="namaTodo"><strong>Nama To Do</strong> </p>
+                    <input type="text"  class="form-control" id="namaTodo">
+                </div>
+                <div class="form-group">
+                    <p for="prioritas"><strong>Prioritas</strong> </p>
+                    <select name="prioritas"  id="prioritas" class="form-control" >
+                        <option value="Penting">Penting</option>
+                        <option value="Biasa">Biasa</option>
+                        <option value="Tidak Penting">Tidak Penting</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p for="catatan"><strong>Tulis Catatan</strong> </p>
+                    <textarea class="form-control" id="catatan"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-danger text-dark" @click="cancel">Cancel</button>
+                    <button class="btn btn-primary text-dark" @click="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="text-center mt-5" >
+            {{ `${dataDiri.nama} | ${dataDiri.npm} | ${dataDiri.kelas}` }}
+        </footer>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            todos:[],
+            dataDiri: {
+                nama:'Sandi Hendrawan',
+                npm: '180709959',
+                kelas: 'A',
+            },
+        },
+        methods: {
+            submit() {     
+                let todo = {
+                    namaTodo : namaTodo.value,
+                    prioritas : prioritas.value,
+                    catatan : catatan.value,
+                }       
+                namaTodo.value = "";
+                prioritas.value = "";
+                catatan.value = "";     
+                
+                this.todos.push(todo);  
+            },
+
+            cancel(){
+                namaTodo.value = "";
+                prioritas.value = "";
+                catatan.value = "";  
+            },
+
+            deleteTask(index){
+                this.todos.splice(index,1);
+            },
+        },
+    });
+</script>
+</html> 
